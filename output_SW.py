@@ -3,8 +3,11 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-
+''' These are values that would be inconvenient to change at the command line '''
+# The entire Cpf1(Cas12)-Repeat sequence. Terminates right before the SWSWSWS
+cas12RepeatSequence = "ACAATTTCTACTGTTGTAGAT"
+# This is the CRISPR-gate Promoter sequence, but terminated right before the SWSWSWS
+CRISPRgatePromoter_first = "ttgacaacctcgtttg"
 
 def readfastq(filename):
     ''' Returns all data from one fastq file'''
@@ -81,6 +84,7 @@ def reversecomplement(nucstring):
     return(revcomp)
 
 def getvals(filename, maxlinenum, isR2):
+    # TODO replace "constants" with variables that can be changed by user
     '''# Helper function for createHeatmap.
     Each possible SWSWSWS assigned binary location on heatmap
     Convention that can be tinkered with later: 'c' and 't' are binary 1
@@ -95,7 +99,7 @@ def getvals(filename, maxlinenum, isR2):
             for line in f:
                 if ((linenum-1) % 4) == 0 and linenum < maxlinenum:  # if is line index 1, 5, etc
                     try:  # Using this because str.find kept returning incorrect index
-                        index1 = line.index('ACAATTTCTACTGTTGTAGAT') + 21  # If not found, go to except
+                        index1 = line.index(cas12RepeatSequence) + len(cas12RepeatSequence)  # If not found, go to except
                         index2 = index1 + 7
 
                         heatIndexList = [line[i+index1].lower() == ['c', 't', 'c', 't', 'c', 't', 'c'][i] for i in range(index2-index1)]
@@ -104,7 +108,7 @@ def getvals(filename, maxlinenum, isR2):
                         vals.append(heatIndex)
 
                     except:  # If the Cpf1/Cas12-repeat does not show up in sequence
-                        print('faulty Cpf1/Cas12 repeat: line ' + str(linenum))
+                        print('faulty (something): ?Cpf1/Cas12 repeat: line ' + str(linenum))
                         numFaultyCpf1 += 1
                 linenum += 1
         else:  # This is the R2 case
@@ -114,7 +118,7 @@ def getvals(filename, maxlinenum, isR2):
                 if ((linenum-1) % 4) == 0 and linenum < maxlinenum:  # if is line index 1, 5, etc
                     line = reversecomplement(line)
                     try:  # Using this because str.find kept returning incorrect index
-                        index1 = line.index('ttgacaacctcgtttg') + 16  # If not found, to except
+                        index1 = line.index(CRISPRgatePromoter_first) + len(CRISPRgatePromoter_first)  # If not found, to except
                         index2 = index1 + 7
                         heatIndexList = [line[i + index1].lower() != ['c', 't', 'c', 't', 'c', 't', 'c'][i] for i in
                                          range(index2 - index1)]
@@ -122,7 +126,7 @@ def getvals(filename, maxlinenum, isR2):
                         heatIndex = ''.join([str(i) for i in heatIndex])
                         vals.append(heatIndex)
                     except:  # If the crispr-gate promoter does not show up in sequence
-                        print('faulty crispr-gate promoter ' + str(linenum))
+                        print('faulty (something): ?crispr-gate promoter ' + str(linenum))
                         numFaultycrispr_gate += 1
                 linenum += 1
     if numFaultyCpf1:
