@@ -106,10 +106,15 @@ def reversecomplement(nucstring):
     '''Helper method for getvals: input is nucleotide sequence, returns its reverse complement'''
     bases_dictionary = {'a': 't', 't': 'a', 'c': 'g', 'g': 'c', 'n': 'n'}
     revcomp = ''
-    for pos in reversed(xrange(1, len(nucstring))):
-        revcomp = revcomp + str((bases_dictionary[nucstring[pos-1].lower()]))
-    return revcomp
-
+    try:
+        for pos in reversed(xrange(1, len(nucstring))):
+            revcomp = revcomp + str((bases_dictionary[nucstring[pos-1].lower()]))
+        return revcomp
+    except Exception as e:
+        # print (e)
+        for pos in reversed(range(1, len(nucstring))):
+            revcomp = revcomp + str((bases_dictionary[nucstring[pos-1].lower()]))
+        return revcomp
 
 def getvals(fastqfilename, maxlinenum, isR2):
     # TODO replace "constants" with variables that can be changed by user
@@ -182,7 +187,7 @@ if __name__ == "__main__":
         fastqFileList = getFastqFileList()
         counter = 0
         for filename in fastqFileList:
-            print("[" + str(counter) + "] " + filename)
+            print("[" + str(counter) + "] " + filename + " [" + str(counter) + "]")
             counter += 1
 
         # Prompt user to pick the first file
