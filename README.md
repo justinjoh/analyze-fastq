@@ -1,7 +1,15 @@
 ### analyze-fastq
-##### Should work with either Python 2 or Python 3
-##### Required Python modules:
+Made for the "Cpf1-CRISPR-gate-sequence"
+##### Python 2 or 3 works
+#####Requires Python modules:
 * numpy
 * matplotlib
 
-###### Created under the Lambert Lab of Cornell University http://lambertlab.io/
+Usage:  
+Put output_SW.py in directory containing fastq files
+
+Run from command line "python output_SW.py" to show list of fastq files to select from  
+Or enter "python output_SW.py somefilenameR1.fastq somefilenameR2.fastq" to specify the files
+
+Will display a "heatmap" displaying agreement of the SWSWSWS regions
+
