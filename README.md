@@ -1,7 +1,7 @@
 ### analyze-fastq
 Made for the "Cpf1-CRISPR-gate-sequence"
 ##### Python 2 or 3 works
-##### Requires Python modules:
+Requires Python modules:
 * numpy
 * matplotlib
 
