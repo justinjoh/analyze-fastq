@@ -13,3 +13,4 @@ Or enter "python output_SW.py somefilenameR1.fastq somefilenameR2.fastq" to spec
 
 Will display a "heatmap" displaying agreement of the SWSWSWS regions
 
+###### Created in the Lambert Lab (Cornell University, Department of Applied and Engineering Physics)
