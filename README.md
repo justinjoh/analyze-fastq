@@ -1,5 +1,5 @@
 ### analyze-fastq
-Made for the "Cpf1-CRISPR-gate-sequence"
+Made for the "Cpf1-CRISPR-gate-sequence" -- research work in Lambert Lab at Cornell University
 ##### Python 2 or 3 works
 Requires Python modules:
 * numpy
@@ -12,5 +12,3 @@ Run from command line "python output_SW.py" to show list of fastq files to selec
 Or enter "python output_SW.py somefilenameR1.fastq somefilenameR2.fastq" to specify the files
 
 Will display a "heatmap" displaying agreement of the SWSWSWS regions
-
-###### Created in the Lambert Lab (Cornell University, Department of Applied and Engineering Physics)
